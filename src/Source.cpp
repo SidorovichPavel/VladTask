@@ -12,15 +12,14 @@ enum class CalcTarget : size_t
 	Volume
 };
 
+//insert value before "Count"
 enum class Shapes : size_t
 {
-	None = 0,
+	Nope,
 	Sphere,
 	Parallelepiped,
-
+	Count
 };
-
-
 
 using dict_t = std::map<Shapes, std::unique_ptr<IShape>>;
 
@@ -36,6 +35,9 @@ auto create_dict()
 
 void make_calc(IShape* _Shape)
 {
+	if (!_Shape)
+		return;
+
 	_Shape->read_data();
 
 	size_t selector = -1;
@@ -66,7 +68,7 @@ void make_calc(IShape* _Shape)
 				break;
 			}
 		}
-		catch (ShapeCalcExcept& e){
+		catch (ShapeCalcExcept& e) {
 			std::cout << e.what() << std::endl;
 		}
 	}
@@ -86,20 +88,11 @@ int main()
 		}
 		std::cin >> selector;
 
-		switch (static_cast<Shapes>(selector))
-		{
-		case Shapes::None:
+		if (selector == 0)
 			break;
-		case Shapes::Sphere:
-			make_calc(dict[Shapes::Sphere].get());
-			break;
-		case Shapes::Parallelepiped:
-			make_calc(dict[Shapes::Parallelepiped].get());
-			break;
-		default:
-			std::cout << "What you wi???" << std::endl;
-			break;
-		}
+
+		if (selector < static_cast<size_t>(Shapes::Count))
+			make_calc(dict[static_cast<Shapes>(selector)].get());
 	}
 
 	return 0;
