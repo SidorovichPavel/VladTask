@@ -37,12 +37,12 @@ float Sphere::get_perimetr()
 
 float Sphere::get_area()
 {
-	return 4 * PI * mRadius * mRadius;
+	return static_cast<float>(4 * PI * mRadius * mRadius);
 }
 
 float Sphere::get_volume()
 {
-	return 4.f / 3.f * PI * mRadius * mRadius * mRadius;
+	return static_cast<float>(4.f / 3.f * PI * mRadius * mRadius * mRadius);
 }
 
 /*********************************** Parallelepiped ***********************************/
